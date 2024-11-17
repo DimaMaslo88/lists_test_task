@@ -8,15 +8,16 @@ import {ModalWindow} from "ui/modal/ModalWindow";
 
 export const Main = () => {
     const dispatch = useAppDispatch()
-    useEffect(() => {
-        dispatch(GetUserTree("Hello"))
-    }, [])
+    // useEffect(() => {
+    //
+    // }, [])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const onClickIconHandler = () => {
-        debugger
+
         setIsModalOpen(true)
     }
-    const handleOkHandler =()=>{
+    const handleOkHandler =(title:string)=>{
+        dispatch(GetUserTree(title))
         setIsModalOpen(false)
     }
     const handleCancelHandler=()=>{
