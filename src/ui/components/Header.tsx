@@ -10,7 +10,7 @@ export const Header = () => {
     },[])
     return (
         <div className={style.headerContainer}>
-          back
+            <div>back</div>
           logo
         </div>
     );
