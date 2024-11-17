@@ -1,5 +1,13 @@
 .mainContainer{
     display: flex;
     flex-wrap: wrap;
+    margin: 20px;
+    align-items: center;
 
+}
+.icon{
+    margin-left: 10px;
+}
+.icon:hover{
+    cursor: pointer;
 }
