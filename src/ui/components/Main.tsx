@@ -4,10 +4,14 @@ import style from "styles/MainPage.module.css"
 import {useAppDispatch} from "hooks/hooks";
 import {GetUserTree} from "bll/reducers/userPostsReducer";
 import {ModalWindow} from "ui/modal/ModalWindow";
+import {useSelector} from "react-redux";
+import {selectMainBranch} from "bll/selectors/selectors";
+import {ChildrenItem} from "ui/components/ChildrenItem";
 
 
 export const Main = () => {
     const dispatch = useAppDispatch()
+    const mainBranch = useSelector(selectMainBranch)
     // useEffect(() => {
     //
     // }, [])
@@ -16,11 +20,11 @@ export const Main = () => {
 
         setIsModalOpen(true)
     }
-    const handleOkHandler =(title:string)=>{
+    const handleOkHandler = (title: string) => {
         dispatch(GetUserTree(title))
         setIsModalOpen(false)
     }
-    const handleCancelHandler=()=>{
+    const handleCancelHandler = () => {
         setIsModalOpen(false)
     }
     return (
@@ -31,6 +35,7 @@ export const Main = () => {
                 height={50}
                 onClick={onClickIconHandler}
             /></div>
+            <ChildrenItem title={}/>
             {isModalOpen && <ModalWindow open={isModalOpen} onOk={handleOkHandler} onCancel={handleCancelHandler}/>}
         </div>
     );

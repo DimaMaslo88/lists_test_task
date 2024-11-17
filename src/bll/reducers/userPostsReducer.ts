@@ -2,11 +2,13 @@ import {setUserTree, SetUserTreeType} from "bll/actions/userTreeActions";
 import {AppThunkType} from "bll/store";
 import {UserTreeApi} from "dal/api/userTree-api/userTree-api";
 
-export const userTreeReducerState = {
+export const userTreeReducerState = [
+    {
     id: 0,
     name: "",
     children: []
 }
+]
 export type ChildrenTreeType = {
     id: number,
     name: string
@@ -20,10 +22,10 @@ export type UserTreeReducerType = {
 }
 export type UserTreeActionsType = SetUserTreeType
 
-export const UserTreeReducer = (state: UserTreeReducerType = userTreeReducerState, action: UserTreeActionsType): UserTreeReducerType => {
+export const UserTreeReducer = (state: UserTreeReducerType[] = userTreeReducerState, action: UserTreeActionsType): UserTreeReducerType[] => {
     switch (action.type) {
         case "SET-USER-TYPE":{
-            return {...state,...action.payload.data}
+            return [...state,...action.payload.data]
         }
         default:
             return state
