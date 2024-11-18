@@ -25,7 +25,7 @@ export type UserTreeActionsType = SetUserTreeType
 export const UserTreeReducer = (state: UserTreeReducerType[] = userTreeReducerState, action: UserTreeActionsType): UserTreeReducerType[] => {
     switch (action.type) {
         case "SET-USER-TYPE":{
-            return [...state,...action.payload.data]
+            return [...state,{...action.payload.data}]
         }
         default:
             return state

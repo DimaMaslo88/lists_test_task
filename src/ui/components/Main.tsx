@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {AddIcon} from "assets/icons/plus-file-svgrepo-com";
 import style from "styles/MainPage.module.css"
 import {useAppDispatch} from "hooks/hooks";
-import {GetUserTree} from "bll/reducers/userPostsReducer";
+import {GetUserTree, UserTreeReducerType} from "bll/reducers/userPostsReducer";
 import {ModalWindow} from "ui/modal/ModalWindow";
 import {useSelector} from "react-redux";
 import {selectMainBranch} from "bll/selectors/selectors";
@@ -29,13 +29,21 @@ export const Main = () => {
     }
     return (
         <div className={style.mainContainer}>
+            <div className={style.itemBlock}>
             <h1>List of items</h1>
             <div className={style.icon}><AddIcon
                 width={50}
                 height={50}
                 onClick={onClickIconHandler}
             /></div>
-            <ChildrenItem title={}/>
+            </div>
+            <div>
+            {mainBranch.map(({id,name,children}:UserTreeReducerType)=>(
+                <ul key={id}>
+                <ChildrenItem id ={id} title={name} childrenItem={children}/>
+                </ul>
+            ))}
+            </div>
             {isModalOpen && <ModalWindow open={isModalOpen} onOk={handleOkHandler} onCancel={handleCancelHandler}/>}
         </div>
     );
