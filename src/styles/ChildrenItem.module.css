@@ -1,3 +1,8 @@
 .itemContainer{
     display: flex;
+    align-items: center;
+}
+.iconsBlock{
+    display: flex;
+align-items: center;
 }

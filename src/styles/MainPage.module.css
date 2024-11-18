@@ -12,6 +12,13 @@
 .icon{
     margin-left: 10px;
 }
-.icon:hover{
+.deleteIcon{
+   font-size: 30px;
+    margin-left: 10px;
+    color: red;
+
+}
+.icon:hover,
+.deleteIcon:hover{
     cursor: pointer;
 }
