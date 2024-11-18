@@ -5,27 +5,29 @@ import {useAppDispatch} from "hooks/hooks";
 import {GetUserTree, UserTreeReducerType} from "bll/reducers/userPostsReducer";
 import {ModalWindow} from "ui/modal/ModalWindow";
 import {useSelector} from "react-redux";
-import {selectMainBranch} from "bll/selectors/selectors";
+import {selectIsOpenModal, selectMainBranch} from "bll/selectors/selectors";
 import {ChildrenItem} from "ui/components/ChildrenItem";
+import {setIsOpenModal} from "bll/actions/modalActions";
 
 
 export const Main = () => {
     const dispatch = useAppDispatch()
     const mainBranch = useSelector(selectMainBranch)
+    const isModalOpen = useSelector(selectIsOpenModal)
     // useEffect(() => {
     //
     // }, [])
-    const [isModalOpen, setIsModalOpen] = useState(false)
+   // const [isModalOpen, setIsModalOpen] = useState(false)
     const onClickIconHandler = () => {
+dispatch(setIsOpenModal(true))
 
-        setIsModalOpen(true)
     }
     const handleOkHandler = (title: string) => {
         dispatch(GetUserTree(title))
-        setIsModalOpen(false)
+        dispatch(setIsOpenModal(false))
     }
     const handleCancelHandler = () => {
-        setIsModalOpen(false)
+        dispatch(setIsOpenModal(false))
     }
     return (
         <div className={style.mainContainer}>
