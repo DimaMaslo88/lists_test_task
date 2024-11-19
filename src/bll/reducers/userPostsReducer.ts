@@ -51,7 +51,7 @@ try{
     console.log('')
 }
 }
-export const GetUserChildrenTree =(params:{treeName:string,parentNodeId:number,nodeName:string}):AppThunkType=>async (dispatch)=>{
+export const GetUserChildrenTree =(params:{parentNodeId:number,treeName:string,nodeName:string}):AppThunkType=>async (dispatch)=>{
     try{
         const res = await UserTreeApi.getUserChildrenTree(params)
         console.log(res.data)

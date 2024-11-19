@@ -26,9 +26,9 @@ export const ChildrenItem = ({title,id,childrenItem}: ChildrenItemType) => {
         dispatch(setIsOpenChildrenModal(true))
 
     }
-    const handleOkHandler=(childrenTitle:string)=>{
+    const handleOkHandler=(params:{id:number,title:string,childrenTitle:})=>{
         debugger
-        dispatch(GetUserChildrenTree({id,title,childrenTitle}))
+        dispatch(GetUserChildrenTree())
         dispatch(setIsOpenChildrenModal(false))
     }
     const handleCancelHandler = () => {
