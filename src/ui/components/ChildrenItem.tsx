@@ -1,27 +1,38 @@
 import React, {useState} from 'react';
-import {ChildrenTreeType} from "bll/reducers/userPostsReducer";
+import {ChildrenTreeType, GetUserChildrenTree} from "bll/reducers/userPostsReducer";
 import style from 'styles/ChildrenItem.module.css'
 import s from 'styles/MainPage.module.css'
 import {DeleteOutlined, EditTwoTone, PlusCircleTwoTone} from "@ant-design/icons";
 import {useAppDispatch} from "hooks/hooks";
 import {useSelector} from "react-redux";
-import {selectIsOpenModal} from "bll/selectors/selectors";
-import {setIsOpenModal} from "bll/actions/modalActions";
+import {selectIsOpenChildrenModal, selectIsOpenModal} from "bll/selectors/selectors";
+import {setIsOpenChildrenModal, setIsOpenModal} from "bll/actions/modalActions";
+import {ChildrenModalWindow} from "ui/modal/ChildrenModalWindow";
 
 type ChildrenItemType = {
     id: number,
     title: string,
     childrenItem: ChildrenTreeType[]
 }
-export const ChildrenItem = ({id, title, childrenItem}: ChildrenItemType) => {
+export const ChildrenItem = ({title,id,childrenItem}: ChildrenItemType) => {
     const dispatch = useAppDispatch()
-    const modalWindow = useSelector(selectIsOpenModal)
+    const modalWindow = useSelector(selectIsOpenChildrenModal)
+
     const [item, setItem] = useState<boolean>(false)
     const onClickHandler = () => {
         setItem(!item)
     }
     const addNewItemHandler=()=>{
-        dispatch(setIsOpenModal(true))
+        dispatch(setIsOpenChildrenModal(true))
+
+    }
+    const handleOkHandler=(childrenTitle:string)=>{
+        debugger
+        dispatch(GetUserChildrenTree({id,title,childrenTitle}))
+        dispatch(setIsOpenChildrenModal(false))
+    }
+    const handleCancelHandler = () => {
+        dispatch(setIsOpenModal(false))
     }
     return (
         <div className={style.itemContainer}>
@@ -34,6 +45,7 @@ export const ChildrenItem = ({id, title, childrenItem}: ChildrenItemType) => {
                     < DeleteOutlined className={s.deleteIcon}/>
                 </div>
                 }
+                {modalWindow && <ChildrenModalWindow open={modalWindow} onOk={()=>handleOkHandler("hello")} onCancel={handleCancelHandler}/>}
             </div>
         </div>
     );
