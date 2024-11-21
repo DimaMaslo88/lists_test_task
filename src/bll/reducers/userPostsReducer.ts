@@ -1,19 +1,19 @@
-import {setUserTree, SetUserTreeType} from "bll/actions/userTreeActions";
-import {AppThunkType} from "bll/store";
+import {setUserTree, setUserTreeName, SetUserTreeType} from "bll/actions/userTreeActions";
+import {AppThunkType, StateType} from "bll/store";
 import {UserTreeApi} from "dal/api/userTree-api/userTree-api";
 import {setChildrenUserTree, UserChildrenTreeActionsType} from "bll/actions/userChildrenTreeActions";
 
 export const userTreeReducerState =
     {
-    id: 0,
-    name: "",
-    children: []
-}
+        id: 0,
+        name: "",
+        children: []
+    }
 
 export type ChildrenTreeType = {
     id: number,
     name: string
-    children:[]
+    children: []
 }
 export type UserTreeReducerType = {
     id: number,
@@ -23,12 +23,12 @@ export type UserTreeReducerType = {
 
 }
 export type UserTreeActionsType = SetUserTreeType
-|UserChildrenTreeActionsType
+    | UserChildrenTreeActionsType
 
 export const UserTreeReducer = (state: UserTreeReducerType = userTreeReducerState, action: UserTreeActionsType): UserTreeReducerType => {
     switch (action.type) {
         case "SET-USER-TYPE": {
-            return {...state,children:[action.payload.data]}
+            return {...state, children: [action.payload.data]}
         }
 //         case "SET-CHILDREN-USER-TREE":{
 // return [...state,{...state,children:[...action.payload.params]}]
@@ -39,26 +39,29 @@ export const UserTreeReducer = (state: UserTreeReducerType = userTreeReducerStat
 }
 
 
-export const GetUserTree =(treeName:string):AppThunkType=>async (dispatch)=>{
-try{
-    const res = await UserTreeApi.getUserTree(treeName)
-    console.log('Response',res.data)
-    dispatch(setUserTree(res.data))
+export const GetUserTree = (treeName: string): AppThunkType =>
+    async (dispatch) => {
 
-}catch (err){
-    console.log(err)
-}finally {
-    console.log('')
-}
-}
-export const GetUserChildrenTree =(params:{parentNodeId:number,treeName:string,nodeName:string}):AppThunkType=>async (dispatch)=>{
-    try{
+        try {
+            const res = await UserTreeApi.getUserTree(treeName)
+            console.log('Response', res.data)
+            dispatch(setUserTreeName(res.data.name))
+            dispatch(setUserTree(res.data))
+
+        } catch (err) {
+            console.log(err)
+        } finally {
+            console.log('')
+        }
+    }
+export const GetUserChildrenTree = (params: { treeName: string, parentNodeId: number, nodeName: string }): AppThunkType => async (dispatch) => {
+    try {
         const res = await UserTreeApi.getUserChildrenTree(params)
         console.log(res.data)
-        dispatch(setChildrenUserTree(res.data))
-    }catch (err){
+        dispatch(setUserTree(res.data))
+    } catch (err) {
         console.log(err)
-    }finally {
+    } finally {
         console.log('')
     }
 }

@@ -5,19 +5,20 @@ import s from 'styles/MainPage.module.css'
 import {DeleteOutlined, EditTwoTone, PlusCircleTwoTone} from "@ant-design/icons";
 import {useAppDispatch} from "hooks/hooks";
 import {useSelector} from "react-redux";
-import {selectIsOpenChildrenModal, selectIsOpenModal} from "bll/selectors/selectors";
+import {selectIsOpenChildrenModal, selectIsOpenModal, selectUserTreeName} from "bll/selectors/selectors";
 import {setIsOpenChildrenModal, setIsOpenModal} from "bll/actions/modalActions";
 import {ChildrenModalWindow} from "ui/modal/ChildrenModalWindow";
 
 type ChildrenItemType = {
-    id: number,
-    title: string,
+    parentNodeId: number,
+    treeName: string,
     childrenItem: ChildrenTreeType[]
 }
-export const ChildrenItem = ({title,id,childrenItem}: ChildrenItemType) => {
+export const ChildrenItem = ({treeName,parentNodeId,childrenItem}: ChildrenItemType) => {
     const dispatch = useAppDispatch()
     const modalWindow = useSelector(selectIsOpenChildrenModal)
 
+const nodeName = "hello" // hardcode nodeName
     const [item, setItem] = useState<boolean>(false)
     const onClickHandler = () => {
         setItem(!item)
@@ -26,17 +27,17 @@ export const ChildrenItem = ({title,id,childrenItem}: ChildrenItemType) => {
         dispatch(setIsOpenChildrenModal(true))
 
     }
-    const handleOkHandler=(params:{id:number,title:string,childrenTitle:})=>{
+    const handleOkHandler=()=>{
         debugger
-        dispatch(GetUserChildrenTree())
+dispatch(GetUserChildrenTree({treeName,parentNodeId,nodeName}))
         dispatch(setIsOpenChildrenModal(false))
     }
     const handleCancelHandler = () => {
-        dispatch(setIsOpenModal(false))
+        dispatch(setIsOpenChildrenModal(false))
     }
     return (
         <div className={style.itemContainer}>
-            <h3 onClick={onClickHandler} role="presentation">{title}</h3>
+            <h3 onClick={onClickHandler} role="presentation">{treeName}</h3>
             <div>
                 {item && <div className={style.iconsBlock}>
 
@@ -45,7 +46,7 @@ export const ChildrenItem = ({title,id,childrenItem}: ChildrenItemType) => {
                     < DeleteOutlined className={s.deleteIcon}/>
                 </div>
                 }
-                {modalWindow && <ChildrenModalWindow open={modalWindow} onOk={()=>handleOkHandler("hello")} onCancel={handleCancelHandler}/>}
+                {modalWindow && <ChildrenModalWindow open={modalWindow} onOk={handleOkHandler} onCancel={handleCancelHandler}/>}
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ export const UserTreeApi={
     getUserTree(treeName:string){
         return instance.post(`/api.user.tree.get/${treeName}`)
     },
-    getUserChildrenTree(params:{parentNodeId:number,treeName:string,nodeName:string}){
+    getUserChildrenTree(params:{treeName:string,parentNodeId:number,nodeName:string}){
         return instance.post(`/api.user.tree.node.create/${params}`)
     }
 }

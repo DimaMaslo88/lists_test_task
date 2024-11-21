@@ -14,16 +14,16 @@ export const Main = () => {
     const dispatch = useAppDispatch()
     const mainBranch = useSelector(selectMainBranch)
     const isModalOpen = useSelector(selectIsOpenModal)
-    // useEffect(() => {
-    //
-    // }, [])
+    useEffect(() => {
+        dispatch(GetUserTree("Guid"))
+    }, [])
    // const [isModalOpen, setIsModalOpen] = useState(false)
     const onClickIconHandler = () => {
 dispatch(setIsOpenModal(true))
 
     }
     const handleOkHandler = (title: string) => {
-        dispatch(GetUserTree(title))
+        // dispatch(GetUserTree(title))
         dispatch(setIsOpenModal(false))
     }
     const handleCancelHandler = () => {
@@ -42,7 +42,7 @@ dispatch(setIsOpenModal(true))
             <div>
             {mainBranch.map(({id,name,children}:UserTreeReducerType)=>(
                 <ul key={id}>
-                <ChildrenItem id ={id} title={name} childrenItem={children}/>
+                <ChildrenItem parentNodeId ={id} treeName={name} childrenItem={children}/>
                 </ul>
             ))}
             </div>
