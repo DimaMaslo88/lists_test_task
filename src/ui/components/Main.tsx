@@ -15,7 +15,7 @@ export const Main = () => {
     const mainBranch = useSelector(selectMainBranch)
     const isModalOpen = useSelector(selectIsOpenModal)
     useEffect(() => {
-        dispatch(GetUserTree("Guid"))
+        dispatch(GetUserTree("Pulihovo"))
     }, [])
    // const [isModalOpen, setIsModalOpen] = useState(false)
     const onClickIconHandler = () => {

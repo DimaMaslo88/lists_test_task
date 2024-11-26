@@ -45,9 +45,9 @@ export const GetUserTree = (treeName: string): AppThunkType =>
         try {
             const res = await UserTreeApi.getUserTree(treeName)
             console.log('Response', res.data)
-            dispatch(setUserTreeName(res.data.name))
-            dispatch(setUserTree(res.data))
 
+            dispatch(setUserTree(res.data))
+            dispatch(setUserTreeName(res.data.name))
         } catch (err) {
             console.log(err)
         } finally {

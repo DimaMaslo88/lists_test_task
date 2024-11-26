@@ -18,7 +18,7 @@ export const ChildrenItem = ({treeName,parentNodeId,childrenItem}: ChildrenItemT
     const dispatch = useAppDispatch()
     const modalWindow = useSelector(selectIsOpenChildrenModal)
 
-const nodeName = "hello" // hardcode nodeName
+const nodeName = "offspring" // hardcode nodeName
     const [item, setItem] = useState<boolean>(false)
     const onClickHandler = () => {
         setItem(!item)
