@@ -8,30 +8,46 @@ import {useSelector} from "react-redux";
 import {selectIsOpenChildrenModal, selectIsOpenModal, selectUserTreeName} from "bll/selectors/selectors";
 import {setIsOpenChildrenModal, setIsOpenModal} from "bll/actions/modalActions";
 import {ChildrenModalWindow} from "ui/modal/ChildrenModalWindow";
+import axios from "axios";
 
 type ChildrenItemType = {
     parentNodeId: number,
     treeName: string,
     childrenItem: ChildrenTreeType[]
 }
-export const ChildrenItem = ({treeName,parentNodeId,childrenItem}: ChildrenItemType) => {
+export const ChildrenItem = ({treeName, parentNodeId, childrenItem}: ChildrenItemType) => {
     const dispatch = useAppDispatch()
     const modalWindow = useSelector(selectIsOpenChildrenModal)
 
-const nodeName = "offspring" // hardcode nodeName
+    const nodeName = "loh" // hardcode nodeName
     const [item, setItem] = useState<boolean>(false)
     const onClickHandler = () => {
         setItem(!item)
     }
-    const addNewItemHandler=()=>{
+    const addNewItemHandler = () => {
         dispatch(setIsOpenChildrenModal(true))
 
     }
-    const handleOkHandler=()=>{
-        debugger
-dispatch(GetUserChildrenTree({treeName,parentNodeId,nodeName}))
+    const handleOkHandler = () => {
+
+        dispatch(GetUserChildrenTree({treeName, parentNodeId, nodeName}))
         dispatch(setIsOpenChildrenModal(false))
     }
+    // const createNode = async () => {
+    //     try {
+    //         const response = await axios.post('https://test.vmarmysh.com/api.user.tree.node.create', null, {
+    //             params: {
+    //                 treeName,
+    //                 parentNodeId,
+    //                 nodeName
+    //             }
+    //         });
+    //
+    //         console.log('Node created successfully:', response.data);
+    //     } catch (error) {
+    //         console.error('Error creating node:');
+    //     }
+    // };
     const handleCancelHandler = () => {
         dispatch(setIsOpenChildrenModal(false))
     }
@@ -41,12 +57,13 @@ dispatch(GetUserChildrenTree({treeName,parentNodeId,nodeName}))
             <div>
                 {item && <div className={style.iconsBlock}>
 
-                    <PlusCircleTwoTone className={s.icon} onClick={addNewItemHandler} />
+                    <PlusCircleTwoTone className={s.icon} onClick={addNewItemHandler}/>
                     <EditTwoTone className={s.icon}/>
                     < DeleteOutlined className={s.deleteIcon}/>
                 </div>
                 }
-                {modalWindow && <ChildrenModalWindow open={modalWindow} onOk={handleOkHandler} onCancel={handleCancelHandler}/>}
+                {modalWindow &&
+                <ChildrenModalWindow open={modalWindow} onOk={handleOkHandler} onCancel={handleCancelHandler}/>}
             </div>
         </div>
     );
