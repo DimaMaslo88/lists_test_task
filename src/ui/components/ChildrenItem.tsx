@@ -1,19 +1,20 @@
 import React, {useState} from 'react';
-import {ChildrenTreeType, GetUserChildrenTree} from "bll/reducers/userPostsReducer";
+import {GetUserChildrenTree, UserTreeType} from "bll/reducers/userPostsReducer";
 import style from 'styles/ChildrenItem.module.css'
 import s from 'styles/MainPage.module.css'
 import {DeleteOutlined, EditTwoTone, PlusCircleTwoTone} from "@ant-design/icons";
 import {useAppDispatch} from "hooks/hooks";
 import {useSelector} from "react-redux";
-import {selectIsOpenChildrenModal, selectIsOpenModal, selectUserTreeName} from "bll/selectors/selectors";
+import {selectIsOpenChildrenModal, selectIsOpenModal} from "bll/selectors/selectors";
 import {setIsOpenChildrenModal, setIsOpenModal} from "bll/actions/modalActions";
 import {ChildrenModalWindow} from "ui/modal/ChildrenModalWindow";
 import axios from "axios";
+import {ModalWindow} from "ui/modal/ModalWindow";
 
 type ChildrenItemType = {
     parentNodeId: number,
     treeName: string,
-    childrenItem: ChildrenTreeType[]
+    childrenItem: UserTreeType[]
 }
 export const ChildrenItem = ({treeName, parentNodeId, childrenItem}: ChildrenItemType) => {
     const dispatch = useAppDispatch()
@@ -62,8 +63,8 @@ export const ChildrenItem = ({treeName, parentNodeId, childrenItem}: ChildrenIte
                     < DeleteOutlined className={s.deleteIcon}/>
                 </div>
                 }
-                {modalWindow &&
-                <ChildrenModalWindow open={modalWindow} onOk={handleOkHandler} onCancel={handleCancelHandler}/>}
+                 {modalWindow &&
+                 <ModalWindow open={modalWindow} onOk={handleOkHandler} onCancel={handleCancelHandler}/>}
             </div>
         </div>
     );

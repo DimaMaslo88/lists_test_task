@@ -1,7 +1,7 @@
-import {ChildrenTreeType} from "bll/reducers/userPostsReducer";
+import {UserTreeType} from "bll/reducers/userPostsReducer";
 
 export type SetUserTreeType = ReturnType<typeof setUserTree>
-export const setUserTree =(data:ChildrenTreeType)=>{
+export const setUserTree =(data:UserTreeType)=>{
     return {
         type:'SET-USER-TREE-TYPE',
         payload:{

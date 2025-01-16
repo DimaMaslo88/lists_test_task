@@ -3,37 +3,28 @@ import {AppThunkType, StateType} from "bll/store";
 import {UserTreeApi} from "dal/api/userTree-api/userTree-api";
 import {setChildrenUserTree, UserChildrenTreeActionsType} from "bll/actions/userChildrenTreeActions";
 
-export const userTreeReducerState =
-    {
-        id: 0,
-        name: "",
-        children: []
-    }
+export const userTreeReducerState:UserTreeType[] =[
 
-export type ChildrenTreeType = {
+]
+
+export type UserTreeType = {
     id: number,
     name: string
     children: []
 }
-export type UserTreeReducerType = {
-    id: number,
-    name: string,
-    children: ChildrenTreeType[]
 
-
-}
 export type UserTreeActionsType = SetUserTreeType
     |SetUserTreeNameType
 
 
-export const UserTreeReducer = (state: UserTreeReducerType = userTreeReducerState, action: UserTreeActionsType): UserTreeReducerType => {
+export const UserTreeReducer = (state: UserTreeType[] = userTreeReducerState, action: UserTreeActionsType): UserTreeType[] => {
     switch (action.type) {
         case "SET-USER-TREE-TYPE": {
-            return {...state, children: [action.payload.data]}
+            return [...state,{...action.payload.data}]
         }
-        case "SET-USER-TREE-NAME-TYPE":{
-            return {...state,name:action.payload.name}
-        }
+        // case "SET-USER-TREE-NAME-TYPE":{
+        //     return {...state.map(m=>m.name:action.payload.name)}
+        // }
 
 //         case "SET-CHILDREN-USER-TREE":{
 // return [...state,{...state,children:[...action.payload.params]}]
@@ -51,8 +42,8 @@ export const GetUserTree = (treeName: string): AppThunkType =>
             const res = await UserTreeApi.getUserTree(treeName)
             console.log('Response', res.data)
 
-            dispatch(setUserTree(res.data))
-            dispatch(setUserTreeName(res.data.name))
+
+            // dispatch(setUserTreeName(res.data.name))
         } catch (err) {
             console.log(err)
         } finally {

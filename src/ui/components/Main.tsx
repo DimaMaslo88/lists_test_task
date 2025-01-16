@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {AddIcon} from "assets/icons/plus-file-svgrepo-com";
 import style from "styles/MainPage.module.css"
 import {useAppDispatch} from "hooks/hooks";
-import {GetUserTree, UserTreeReducerType} from "bll/reducers/userPostsReducer";
+import {GetUserTree, UserTreeType} from "bll/reducers/userPostsReducer";
 import {ModalWindow} from "ui/modal/ModalWindow";
 import {useSelector} from "react-redux";
 import {selectIsOpenModal, selectMainBranch} from "bll/selectors/selectors";
@@ -15,9 +15,10 @@ export const Main = () => {
     const dispatch = useAppDispatch()
     const mainBranch = useSelector(selectMainBranch)
     const isModalOpen = useSelector(selectIsOpenModal)
+    // const titleOfTree = useSelector(selectUserTreeName)
     useEffect(() => {
         debugger
-        dispatch(GetUserTree("Pulihovo"))
+        dispatch(GetUserTree('DimasProject'))
     }, [])
    // const [isModalOpen, setIsModalOpen] = useState(false)
     const onClickIconHandler = () => {
@@ -43,7 +44,7 @@ dispatch(setIsOpenModal(true))
             /></div>
             </div>
             <div>
-            {mainBranch.map(({id,name,children}:UserTreeReducerType)=>(
+            {mainBranch.map(({id,name,children}:UserTreeType)=>(
                 <ul key={id}>
                 <ChildrenItem parentNodeId ={id} treeName={name} childrenItem={children}/>
                 </ul>
@@ -53,4 +54,9 @@ dispatch(setIsOpenModal(true))
         </div>
     );
 };
+
+// 1.Поменять логику main component
+// (на функцию handleOkHandler повесить вызов санки GetUserChildrenTree,
+// взять name parent,id parent и newName)
+// 2.Если отработает все, удалить childrenModal
 
