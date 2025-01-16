@@ -1,4 +1,4 @@
-import {setUserTree, setUserTreeName, SetUserTreeType} from "bll/actions/userTreeActions";
+import {setUserTree, setUserTreeName, SetUserTreeNameType, SetUserTreeType} from "bll/actions/userTreeActions";
 import {AppThunkType, StateType} from "bll/store";
 import {UserTreeApi} from "dal/api/userTree-api/userTree-api";
 import {setChildrenUserTree, UserChildrenTreeActionsType} from "bll/actions/userChildrenTreeActions";
@@ -23,13 +23,18 @@ export type UserTreeReducerType = {
 
 }
 export type UserTreeActionsType = SetUserTreeType
-    | UserChildrenTreeActionsType
+    |SetUserTreeNameType
+
 
 export const UserTreeReducer = (state: UserTreeReducerType = userTreeReducerState, action: UserTreeActionsType): UserTreeReducerType => {
     switch (action.type) {
-        case "SET-USER-TYPE": {
+        case "SET-USER-TREE-TYPE": {
             return {...state, children: [action.payload.data]}
         }
+        case "SET-USER-TREE-NAME-TYPE":{
+            return {...state,name:action.payload.name}
+        }
+
 //         case "SET-CHILDREN-USER-TREE":{
 // return [...state,{...state,children:[...action.payload.params]}]
 //         }
@@ -56,6 +61,7 @@ export const GetUserTree = (treeName: string): AppThunkType =>
     }
 export const GetUserChildrenTree = ( data:{treeName: string, parentNodeId: number, nodeName: string}): AppThunkType => async (dispatch) => {
     try {
+        debugger
         const res = await UserTreeApi.getUserChildrenTree(data)
         console.log(res.data)
         dispatch(setUserTree(res.data))

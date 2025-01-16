@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 import {selectIsOpenModal, selectMainBranch} from "bll/selectors/selectors";
 import {ChildrenItem} from "ui/components/ChildrenItem";
 import {setIsOpenModal} from "bll/actions/modalActions";
+import {setUserTreeName} from "bll/actions/userTreeActions";
 
 
 export const Main = () => {
@@ -15,15 +16,17 @@ export const Main = () => {
     const mainBranch = useSelector(selectMainBranch)
     const isModalOpen = useSelector(selectIsOpenModal)
     useEffect(() => {
+        debugger
         dispatch(GetUserTree("Pulihovo"))
     }, [])
    // const [isModalOpen, setIsModalOpen] = useState(false)
     const onClickIconHandler = () => {
 dispatch(setIsOpenModal(true))
 
+
     }
     const handleOkHandler = (title: string) => {
-        // dispatch(GetUserTree(title))
+        dispatch(setUserTreeName(title))
         dispatch(setIsOpenModal(false))
     }
     const handleCancelHandler = () => {

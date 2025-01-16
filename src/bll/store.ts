@@ -7,7 +7,7 @@ import {UserTreeNameReducer, UserTreeNameReducerActions} from "bll/reducers/user
 export const rootReducer = combineReducers({
     userTree:UserTreeReducer,
     modal:ModalReducer,
-    userTreeName:UserTreeNameReducer
+    // userTreeName:UserTreeNameReducer
 })
 export type AppThunkType<ReturnType = void> = ThunkAction<
     ReturnType,
