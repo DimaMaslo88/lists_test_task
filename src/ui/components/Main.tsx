@@ -47,6 +47,7 @@ dispatch(setIsOpenModal(true))
             </div>
             <div>
             {mainBranch.map(({id,name,children}:UserChildrenType)=>(
+
                 <ul key={id}>
                 <ChildrenItem parentNodeId ={id} treeName={name} childrenItem={children}/>
                 </ul>

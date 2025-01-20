@@ -57,6 +57,7 @@ export const GetUserTree = (treeName: string): AppThunkType =>
             const res = await UserTreeApi.getUserTree(treeName)
             console.log('Response', res.data)
              dispatch(setUserTree(res.data.id,res.data.name))
+            dispatch(setChildrenTree(res.data.children))
         } catch (err) {
             console.log(err)
         } finally {
@@ -65,10 +66,10 @@ export const GetUserTree = (treeName: string): AppThunkType =>
     }
 export const GetUserChildrenTree = ( params:{treeName: string, parentNodeId: number | null, nodeName: string}): AppThunkType => async (dispatch) => {
     try {
-        debugger
+
         const res = await UserTreeApi.getUserChildrenTree(params)
         console.log(res.data)
-         dispatch(setChildrenTree(res.data))
+
     } catch (err) {
         console.log(err)
     } finally {
