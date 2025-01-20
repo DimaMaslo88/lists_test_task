@@ -2,19 +2,21 @@ import React, {useEffect, useState} from 'react';
 import {AddIcon} from "assets/icons/plus-file-svgrepo-com";
 import style from "styles/MainPage.module.css"
 import {useAppDispatch} from "hooks/hooks";
-import {GetUserTree, UserTreeType} from "bll/reducers/userPostsReducer";
+import {GetUserChildrenTree, GetUserTree, UserChildrenType, UserTreeType} from "bll/reducers/userPostsReducer";
 import {ModalWindow} from "ui/modal/ModalWindow";
 import {useSelector} from "react-redux";
-import {selectIsOpenModal, selectMainBranch} from "bll/selectors/selectors";
+import {selectIsOpenModal, selectMainBranch, selectUserTreeId, selectUserTreeName} from "bll/selectors/selectors";
 import {ChildrenItem} from "ui/components/ChildrenItem";
 import {setIsOpenModal} from "bll/actions/modalActions";
-import {setUserTreeName} from "bll/actions/userTreeActions";
+
 
 
 export const Main = () => {
     const dispatch = useAppDispatch()
     const mainBranch = useSelector(selectMainBranch)
     const isModalOpen = useSelector(selectIsOpenModal)
+    const parentNodeId = useSelector(selectUserTreeId)
+    const treeName = useSelector(selectUserTreeName)
     // const titleOfTree = useSelector(selectUserTreeName)
     useEffect(() => {
         debugger
@@ -26,8 +28,8 @@ dispatch(setIsOpenModal(true))
 
 
     }
-    const handleOkHandler = (title: string) => {
-        dispatch(setUserTreeName(title))
+    const handleOkHandler = (nodeName: string) => {
+        dispatch(GetUserChildrenTree({treeName,parentNodeId,nodeName}))
         dispatch(setIsOpenModal(false))
     }
     const handleCancelHandler = () => {
@@ -44,7 +46,7 @@ dispatch(setIsOpenModal(true))
             /></div>
             </div>
             <div>
-            {mainBranch.map(({id,name,children}:UserTreeType)=>(
+            {mainBranch.map(({id,name,children}:UserChildrenType)=>(
                 <ul key={id}>
                 <ChildrenItem parentNodeId ={id} treeName={name} childrenItem={children}/>
                 </ul>

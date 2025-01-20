@@ -31,7 +31,7 @@ export const ChildrenItem = ({treeName, parentNodeId, childrenItem}: ChildrenIte
     }
     const handleOkHandler = () => {
 
-        dispatch(GetUserChildrenTree({treeName, parentNodeId, nodeName}))
+        // dispatch(GetUserChildrenTree({treeName, parentNodeId, nodeName}))
         dispatch(setIsOpenChildrenModal(false))
     }
     // const createNode = async () => {

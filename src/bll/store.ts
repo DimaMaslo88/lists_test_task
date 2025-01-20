@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, legacy_createStore as createStore} fro
 import {thunk, ThunkAction, ThunkDispatch} from "redux-thunk";
 import {UserTreeActionsType, UserTreeReducer} from "bll/reducers/userPostsReducer";
 import {ModalReducer, ModalReducerActionsType} from "bll/reducers/modalReducer";
-import {UserTreeNameReducer, UserTreeNameReducerActions} from "bll/reducers/userTreeName";
+
 
 export const rootReducer = combineReducers({
     userTree:UserTreeReducer,
@@ -22,7 +22,7 @@ export type AppDispatch = ThunkDispatch<
     >;
 export type ActionStateType = UserTreeActionsType
 |ModalReducerActionsType
-|UserTreeNameReducerActions
+
 export type StateType = ReturnType<typeof rootReducer>
 export const store = createStore(rootReducer,applyMiddleware(thunk))
 

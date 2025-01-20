@@ -2,9 +2,15 @@ import {instance} from "dal/instance";
 
 export const UserTreeApi={
     getUserTree(treeName:string){
-        return instance.post(`/api.user.tree.get/${treeName}`)
+        return instance.post<GetUserTreeType>(`/api.user.tree.get/${treeName}`)
     },
-    getUserChildrenTree(data:{treeName:string,parentNodeId:number,nodeName:string}){
-        return instance.post(`/api.user.tree.node.create/${data}`)
+    getUserChildrenTree(params:{treeName:string,parentNodeId:number | null,nodeName:string}){
+        return instance.post(`/api.user.tree.node.create/`,null,{params})
     }
+}
+
+export type GetUserTreeType={
+    id:number,
+    name:string,
+    children:[]
 }
