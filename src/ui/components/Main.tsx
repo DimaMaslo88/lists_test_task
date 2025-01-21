@@ -5,9 +5,16 @@ import {useAppDispatch} from "hooks/hooks";
 import {GetUserChildrenTree, GetUserTree, UserChildrenType, UserTreeType} from "bll/reducers/userPostsReducer";
 import {ModalWindow} from "ui/modal/ModalWindow";
 import {useSelector} from "react-redux";
-import {selectIsOpenModal, selectMainBranch, selectUserTreeId, selectUserTreeName} from "bll/selectors/selectors";
+import {
+    selectIsLoading,
+    selectIsOpenModal,
+    selectMainBranch,
+    selectUserTreeId,
+    selectUserTreeName
+} from "bll/selectors/selectors";
 import {ChildrenItem} from "ui/components/ChildrenItem";
 import {setIsOpenModal} from "bll/actions/modalActions";
+import {Spin} from "antd";
 
 
 
@@ -17,9 +24,9 @@ export const Main = () => {
     const isModalOpen = useSelector(selectIsOpenModal)
     const parentNodeId = useSelector(selectUserTreeId)
     const treeName = useSelector(selectUserTreeName)
+    const isLoading = useSelector(selectIsLoading)
     // const titleOfTree = useSelector(selectUserTreeName)
     useEffect(() => {
-        debugger
         dispatch(GetUserTree('DimasProject'))
     }, [])
    // const [isModalOpen, setIsModalOpen] = useState(false)
@@ -45,11 +52,12 @@ dispatch(setIsOpenModal(true))
                 onClick={onClickIconHandler}
             /></div>
             </div>
+            {isLoading &&  <Spin  size='large'/>}
             <div>
             {mainBranch.map(({id,name,children}:UserChildrenType)=>(
 
                 <ul key={id}>
-                <ChildrenItem parentNodeId ={id} treeName={name} childrenItem={children}/>
+                <ChildrenItem parentNodeId ={id} treeName={name} childrenItemProp={children}/>
                 </ul>
             ))}
             </div>

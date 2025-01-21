@@ -2,29 +2,26 @@ import {applyMiddleware, combineReducers, legacy_createStore as createStore} fro
 import {thunk, ThunkAction, ThunkDispatch} from "redux-thunk";
 import {UserTreeActionsType, UserTreeReducer} from "bll/reducers/userPostsReducer";
 import {ModalReducer, ModalReducerActionsType} from "bll/reducers/modalReducer";
+import {AppReducer, GeneralAppReducerType} from "bll/reducers/app-reducer";
 
 
 export const rootReducer = combineReducers({
-    userTree:UserTreeReducer,
-    modal:ModalReducer,
-    // userTreeName:UserTreeNameReducer
+    userTree: UserTreeReducer,
+    modal: ModalReducer,
+    app: AppReducer
 })
-export type AppThunkType<ReturnType = void> = ThunkAction<
-    ReturnType,
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType,
     StateType,
     undefined,
-    ActionStateType
-    >;
-export type AppDispatch = ThunkDispatch<
-    StateType,
+    ActionStateType>;
+export type AppDispatch = ThunkDispatch<StateType,
     undefined,
-    ActionStateType
-    >;
+    ActionStateType>;
 export type ActionStateType = UserTreeActionsType
-|ModalReducerActionsType
-
+    | ModalReducerActionsType
+    | GeneralAppReducerType
 export type StateType = ReturnType<typeof rootReducer>
-export const store = createStore(rootReducer,applyMiddleware(thunk))
+export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 // @ts-ignore
 window.store = store

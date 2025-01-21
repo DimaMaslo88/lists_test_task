@@ -6,4 +6,4 @@ export const selectUserTreeName =(state:StateType):string=>state.userTree.namePa
 export const selectUserTreeId =(state:StateType):number | null=>state.userTree.parentId
 export const selectIsOpenModal =(state:StateType):boolean=>state.modal.isOpenModal
 export const selectIsOpenChildrenModal =(state:StateType):boolean=>state.modal.isOpenChildrenModal
-
+export const selectIsLoading =(state:StateType):boolean=>state.app.isLoading
