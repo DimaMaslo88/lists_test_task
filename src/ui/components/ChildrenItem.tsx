@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import {GetUserChildrenTree, UserChildrenType} from "bll/reducers/userPostsReducer";
 import style from 'styles/ChildrenItem.module.css'
 import s from 'styles/MainPage.module.css'
 import {DeleteOutlined, EditTwoTone, PlusCircleTwoTone} from "@ant-design/icons";
 import {useAppDispatch} from "hooks/hooks";
 import {useSelector} from "react-redux";
-import {selectIsOpenChildrenModal} from "bll/selectors/selectors";
-import {setIsOpenChildrenModal} from "bll/actions/modalActions";
+import { selectIsOpenModal} from "bll/selectors/selectors";
 import {ModalWindow} from "ui/modal/ModalWindow";
+import {setIsOpenModal} from "bll/actions/modalActions";
 
 type ChildrenItemType = {
     parentNodeId: number,
@@ -16,26 +16,26 @@ type ChildrenItemType = {
 }
 export const ChildrenItem = ({treeName, parentNodeId, childrenItemProp}: ChildrenItemType) => {
     const dispatch = useAppDispatch()
-    const modalWindow = useSelector(selectIsOpenChildrenModal)
+    const modalWindow = useSelector(selectIsOpenModal)
 
 
     const [item, setItem] = useState<boolean>(false)
     const onClickHandler = () => {
         setItem(!item)
-    }
+          }
     const addNewItemHandler = () => {
 
-        dispatch(setIsOpenChildrenModal(true))
+        dispatch(setIsOpenModal(true))
 
     }
     const handleOkHandler = (nodeName:string) => {
 debugger
          dispatch(GetUserChildrenTree({treeName, parentNodeId, nodeName}))
-        dispatch(setIsOpenChildrenModal(false))
+        dispatch(setIsOpenModal(false))
     }
 
     const handleCancelHandler = () => {
-        dispatch(setIsOpenChildrenModal(false))
+        dispatch(setIsOpenModal(false))
     }
     return (
         <div className={style.itemContainer}>

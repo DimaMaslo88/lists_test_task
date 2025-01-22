@@ -67,7 +67,7 @@ export const GetUserChildrenTree = (params: { treeName: string, parentNodeId: nu
     try {
         const res = await UserTreeApi.getUserChildrenTree(params)
         console.log(res.data)
-
+        dispatch(setChildrenTree(res.data.children))
     } catch (err) {
         console.log(err)
     } finally {
