@@ -19,3 +19,12 @@ export const setChildrenTree =(data:UserChildrenType[])=>{
         }
     }as const
 }
+export type DeleteUserNodeType=ReturnType<typeof deleteUserNode>
+export const deleteUserNode = (nodeId:number)=>{
+    return {
+        type:'DELETE-USER-NODE',
+        payload:{
+            nodeId
+        }
+    }as const
+}

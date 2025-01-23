@@ -23,10 +23,10 @@ export const ModalReducer =(state:ModalReducerType=modalReducerState,action:Moda
             return {...state,isOpenModal:action.payload.isOpen}
         }
         case "SET-IS-OPEN-DELETE-MODAL":{
-            return {...state,isOpenModal:action.payload.isOpen}
+            return {...state,isOpenDeleteModal:action.payload.isDeleteOpen}
         }
         case "SET-IS-OPEN-EDIT-MODAL":{
-            return {...state,isOpenModal:action.payload.isOpen}
+            return {...state,isOpenEditModal:action.payload.isEditOpen}
         }
 
         default:return  state

@@ -29,14 +29,17 @@ const deleteModalWindow = useSelector(selectIsOpenDeleteModal)
         dispatch(setIsOpenModal(true))
 
     }
+    const deleteNewItemHandler=()=>{
+        dispatch(setIsOpenDeleteModal(true))
+    }
     const handleOkHandler = (nodeName:string) => {
 
          dispatch(GetUserChildrenTree({treeName, parentNodeId, nodeName}))
         dispatch(setIsOpenModal(false))
     }
     const deleteNodeHandler =()=>{
-        const nodeId =parentNodeId
-        dispatch(DeleteUserNode({treeName,nodeId}))
+
+        dispatch(DeleteUserNode({treeName,parentNodeId}))
     }
     const deleteNodeCancelHandler=()=>{
         dispatch(setIsOpenDeleteModal(false))
@@ -60,7 +63,7 @@ const deleteModalWindow = useSelector(selectIsOpenDeleteModal)
 
                     <PlusCircleTwoTone className={s.icon} onClick={addNewItemHandler}/>
                     <EditTwoTone className={s.icon}/>
-                    < DeleteOutlined className={s.deleteIcon}/>
+                    < DeleteOutlined className={s.deleteIcon} onClick={deleteNewItemHandler}/>
                 </div>
                 }
                  {modalWindow &&

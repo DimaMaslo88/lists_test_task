@@ -1,4 +1,6 @@
 import {
+    deleteUserNode,
+    DeleteUserNodeType,
     setChildrenTree,
     SetChildrenTreeType,
     setUserTree,
@@ -30,6 +32,7 @@ export type UserChildrenType = {
 
 export type UserTreeActionsType = SetUserTreeType
     | SetChildrenTreeType
+    | DeleteUserNodeType
 
 
 export const UserTreeReducer = (state: UserTreeType = userTreeReducerState, action: UserTreeActionsType): UserTreeType => {
@@ -40,7 +43,9 @@ export const UserTreeReducer = (state: UserTreeType = userTreeReducerState, acti
         case "SET-CHILDREN-TREE-TYPE": {
             return {...state, children: [...state.children, ...action.payload.data]}
         }
-
+        case "DELETE-USER-NODE": {
+            return {...state, children: state.children.filter(f => f.id !== action.payload.nodeId)}
+        }
 
         default:
             return state
@@ -59,7 +64,7 @@ export const GetUserTree = (treeName: string): AppThunkType =>
         } catch (err) {
             console.log(err)
         } finally {
-           dispatch(setIsLoading(false))
+            dispatch(setIsLoading(false))
         }
     }
 export const GetUserChildrenTree = (params: { treeName: string, parentNodeId: number | null, nodeName: string }): AppThunkType => async (dispatch) => {
@@ -74,12 +79,12 @@ export const GetUserChildrenTree = (params: { treeName: string, parentNodeId: nu
         dispatch(setIsLoading(false))
     }
 }
-export const DeleteUserNode = (params: { treeName: string,nodeId:number }): AppThunkType => async (dispatch) => {
+export const DeleteUserNode = (params: { treeName: string, parentNodeId: number }): AppThunkType => async (dispatch) => {
     dispatch(setIsLoading(true))
     try {
         const res = await UserTreeApi.deleteNodeTree(params)
         console.log(res.data)
-
+        dispatch(deleteUserNode(params.parentNodeId))
     } catch (err) {
         console.log(err)
     } finally {

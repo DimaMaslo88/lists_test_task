@@ -40,7 +40,7 @@ dispatch(setIsOpenModal(true))
         dispatch(setIsOpenModal(true))
     }
     const handleCancelHandler = () => {
-        dispatch(setIsOpenModal(true))
+        dispatch(setIsOpenModal(false))
     }
     return (
         <div className={style.mainContainer}>
