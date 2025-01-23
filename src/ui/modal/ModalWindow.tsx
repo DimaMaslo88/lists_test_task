@@ -1,7 +1,7 @@
 import {Modal} from 'antd';
 import React, {ChangeEvent, useState} from 'react';
 
-type ModalWindowType = {
+export type ModalWindowType = {
     open: boolean
     onOk: (title:string) => void
     onCancel: () => void

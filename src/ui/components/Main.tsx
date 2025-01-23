@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {AddIcon} from "assets/icons/plus-file-svgrepo-com";
 import style from "styles/MainPage.module.css"
 import {useAppDispatch} from "hooks/hooks";
-import {GetUserChildrenTree, GetUserTree, UserChildrenType, UserTreeType} from "bll/reducers/userPostsReducer";
+import {GetUserChildrenTree, GetUserTree, UserChildrenType} from "bll/reducers/userPostsReducer";
 import {ModalWindow} from "ui/modal/ModalWindow";
 import {useSelector} from "react-redux";
 import {
@@ -29,7 +29,7 @@ export const Main = () => {
     useEffect(() => {
         dispatch(GetUserTree('DimasProject'))
     }, [])
-   // const [isModalOpen, setIsModalOpen] = useState(false)
+
     const onClickIconHandler = () => {
 dispatch(setIsOpenModal(true))
 
@@ -37,10 +37,10 @@ dispatch(setIsOpenModal(true))
     }
     const handleOkHandler = (nodeName: string) => {
         dispatch(GetUserChildrenTree({treeName,parentNodeId,nodeName}))
-        dispatch(setIsOpenModal(false))
+        dispatch(setIsOpenModal(true))
     }
     const handleCancelHandler = () => {
-        dispatch(setIsOpenModal(false))
+        dispatch(setIsOpenModal(true))
     }
     return (
         <div className={style.mainContainer}>

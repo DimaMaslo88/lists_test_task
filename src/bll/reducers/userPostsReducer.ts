@@ -74,3 +74,15 @@ export const GetUserChildrenTree = (params: { treeName: string, parentNodeId: nu
         dispatch(setIsLoading(false))
     }
 }
+export const DeleteUserNode = (params: { treeName: string,nodeId:number }): AppThunkType => async (dispatch) => {
+    dispatch(setIsLoading(true))
+    try {
+        const res = await UserTreeApi.deleteNodeTree(params)
+        console.log(res.data)
+
+    } catch (err) {
+        console.log(err)
+    } finally {
+        dispatch(setIsLoading(false))
+    }
+}

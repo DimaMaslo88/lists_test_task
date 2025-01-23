@@ -6,6 +6,9 @@ export const UserTreeApi={
     },
     getUserChildrenTree(params:{treeName:string,parentNodeId:number | null,nodeName:string}){
         return instance.post(`/api.user.tree.node.create/`,null,{params})
+    },
+    deleteNodeTree(params:{treeName:string,nodeId:number}){
+        return instance.post(`/api.user.tree.node.create/`,null,{params})
     }
 }
 
